@@ -15,4 +15,5 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file /DAPM/Docker-compose.yml --tag my-image-name:$(date +%s)
+      run: cd ./DAPM/
+      run: docker compose up --build
