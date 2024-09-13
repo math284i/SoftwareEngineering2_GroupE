@@ -4,3 +4,5 @@ DAPM/DAPM.Orchestrator/Services/Configuration/IdentityConfiguration.json
 /DAPM/DAPM.OperatorMS.Api/registry
 /DAPM/DAPM.OperatorMS.Api/registry
 /DAPM/DAPM.OperatorMS.Api/registry
+/.idea
+.DS_Store
