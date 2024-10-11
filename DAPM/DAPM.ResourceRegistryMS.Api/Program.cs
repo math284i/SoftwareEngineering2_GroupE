@@ -49,6 +49,7 @@ builder.Services.AddQueueing(new QueueingConfigurationSettings
 builder.Services.AddQueueMessageConsumer<PostRepositoryToRegistryConsumer, PostRepositoryToRegistryMessage>();
 builder.Services.AddQueueMessageConsumer<PostResourceToRegistryConsumer, PostResourceToRegistryMessage>();
 builder.Services.AddQueueMessageConsumer<GetOrganizationsConsumer, GetOrganizationsMessage>();
+builder.Services.AddQueueMessageConsumer<PostOrganisationToRegistryConsumer, PostOrganisationToRegistryMessage>();
 builder.Services.AddQueueMessageConsumer<GetRepositoriesConsumer, GetRepositoriesMessage>();
 builder.Services.AddQueueMessageConsumer<GetResourcesConsumer, GetResourcesMessage>();
 builder.Services.AddQueueMessageConsumer<GetPipelinesConsumer, GetPipelinesMessage>();

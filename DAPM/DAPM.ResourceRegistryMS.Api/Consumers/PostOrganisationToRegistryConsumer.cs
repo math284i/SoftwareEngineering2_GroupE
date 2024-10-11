@@ -1,49 +1,46 @@
 using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 using RabbitMQLibrary.Interfaces;
-using RabbitMQLibrary.Messages.ClientApi;
-using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.ResourceRegistry;
+using System.Threading.Tasks;
+using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
     public class PostOrganisationToRegistryConsumer : IQueueConsumer<PostOrganisationToRegistryMessage>
     {
-        private ILogger<PostOrganisationToRegistryConsumer> _logger;
-        private IResourceService _resourceService;
-        private IQueueProducer<PostOrganisationToRegistryResultMessage> _postOrganisationToRegistryResultProducer;
-        public PostOrganisationToRegistryConsumer(ILogger<PostOrganisationToRegistryConsumer> logger,
-            IQueueProducer<PostOrganisationToRegistryResultMessage> postOrganisationToRegistryResultProducer,
-            IResourceService organisationService)
+        private readonly ILogger<PostOrganisationToRegistryConsumer> _logger;
+        private readonly IQueueProducer<PostOrganisationToRegistryResultMessage> _postOrganisationToRegistryResultProducer;
+        private readonly IResourceService _resourceService;
+
+        public PostOrganisationToRegistryConsumer(
+            ILogger<PostOrganisationToRegistryConsumer> logger,
+            IResourceService resourceService,
+            IQueueProducer<PostOrganisationToRegistryResultMessage> postOrganisationToRegistryResultProducer)
         {
             _logger = logger;
+            _resourceService = resourceService;
             _postOrganisationToRegistryResultProducer = postOrganisationToRegistryResultProducer;
-            _organisationService = organisationService;
         }
+
         public async Task ConsumeAsync(PostOrganisationToRegistryMessage message)
         {
-            _logger.LogInformation("PostOrganisationToRegistryMessage received");
+            _logger.LogInformation($"Consuming message with ID: {message.MessageId}");
 
-            var OrganisationDto = message.Organisation;
-            if (OrganisationDto != null)
+            // Process the message
+            var result = await _resourceService.ProcessOrganisationAsync(message.Organization);
+
+            // Create result message
+            var resultMessage = new PostOrganisationToRegistryResultMessage
             {
-                var createdOrganisation = _organisationService.AddOrganisation(OrganisationDto);
-                if(createdOrganisation != null)
-                {
-                    var resultMessage = new PostOrganisationToRegistryResultMessage
-                    {
-                        ProcessId = message.ProcessId,
-                        TimeToLive = TimeSpan.FromMinutes(1),
-                        Message = "Item created successfully",
-                        Succeeded = true,
-                        Organisation = OrganisationDto
-                    };
+                MessageId = message.MessageId,
+                ProcessId = message.ProcessId,
+                Success = result.Success,
+                Errors = result.Errors
+            };
 
-                    _postOrganisationToRegistryResultProducer.PublishMessage(resultMessage);
-                    _logger.LogInformation("PostOrganisationToRegistryResultMessage published");
-                }
-            }
-
-            return;
+            // Send result message to the queue
+            await _postOrganisationToRegistryResultProducer.ProduceAsync(resultMessage);
         }
     }
 }

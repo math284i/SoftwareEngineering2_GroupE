@@ -13,7 +13,8 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
         private IQueueProducer<PostRepoToRegistryResultMessage> _postRepoToRegistryResultMessageProducer;
         private IPeerService _peerService;
 
-        public PostRepositoryToRegistryConsumer(ILogger<PostRepositoryToRegistryConsumer> logger,
+        public PostRepositoryToRegistryConsumer(
+            ILogger<PostRepositoryToRegistryConsumer> logger,
             IQueueProducer<PostRepoToRegistryResultMessage> postRepoToRegistryResultMessageProducer,
             IPeerService peerService)
         {
