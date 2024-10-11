@@ -11,6 +11,7 @@ namespace DAPM.ClientApi.Services
         private readonly IQueueProducer<GetRepositoriesRequest> _getRepositoriesRequestProducer;
         private readonly IQueueProducer<GetOrganizationsRequest> _getOrganizationsRequestProducer;
         private readonly IQueueProducer<PostRepositoryRequest> _postRepositoryRequestProducer;
+        private readonly IQueueProducer<PostOrganisationRequest> _postOrganisationRequestProducer;
         private readonly ITicketService _ticketService;
 
         public OrganizationService(ILogger<OrganizationService> logger, 
@@ -19,6 +20,7 @@ namespace DAPM.ClientApi.Services
             IQueueProducer<GetRepositoriesRequest> getRepositoriesRequestProducer,
             IQueueProducer<GetOrganizationsRequest> getOrganizationsRequestProducer,
             IQueueProducer<PostRepositoryRequest> postRepositoryRequestProducer,
+            IQueueProducer<PostOrganisationRequest> postOrganisationRequestProducer,
             ITicketService ticketService)
         {
             _logger = logger;
@@ -26,6 +28,7 @@ namespace DAPM.ClientApi.Services
             _getRepositoriesRequestProducer = getRepositoriesRequestProducer;
             _getOrganizationsRequestProducer = getOrganizationsRequestProducer;
             _postRepositoryRequestProducer = postRepositoryRequestProducer;
+            _postOrganisationRequestProducer = postOrganisationRequestProducer;
         }
 
         public Guid GetOrganizationById(Guid organizationId)
@@ -100,6 +103,26 @@ namespace DAPM.ClientApi.Services
             _postRepositoryRequestProducer.PublishMessage(message);
 
             _logger.LogDebug("PostRepositoryRequest Enqueued");
+
+            return ticketId;
+        }
+
+        public Guid CreateOrganization(string organizationName)
+        {
+            var ticketId = _ticketService.CreateNewTicket(TicketResolutionType.Json);
+            Guid id = Guid.NewGuid();
+
+            var message = new PostOrganisationRequest
+            {
+                TimeToLive = TimeSpan.FromMinutes(1),
+                TicketId = ticketId,
+                OrganizationId = id,
+                Name = organizationName,
+            };
+
+            _postOrganisationRequestProducer.PublishMessage(message);
+
+            _logger.LogDebug("PostOrganisationRequest Enqueued");
 
             return ticketId;
         }

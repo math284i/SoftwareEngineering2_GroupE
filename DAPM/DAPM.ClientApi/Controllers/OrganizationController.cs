@@ -23,6 +23,15 @@ namespace DAPM.ClientApi.Controllers
             _organizationService = organizationService;
         }
 
+        [HttpPost("new/{organizationName}")]
+        [SwaggerOperation(Description = "Creates a new organization with a generated ID.")]
+        public async Task<ActionResult<Guid>> Post(string organizationName)
+        {
+            Guid id = _organizationService.CreateOrganization(organizationName);
+            return Ok(new ApiResponse { RequestName = "CreateOrganization", TicketId = id });
+        }
+
+
         [HttpGet]
         [SwaggerOperation(Description = "Gets all peers (organizations) you are connected to. There has to be a collaboration agreement " +
             "and a handshake before you can see other organizations using this endpoint.")]
