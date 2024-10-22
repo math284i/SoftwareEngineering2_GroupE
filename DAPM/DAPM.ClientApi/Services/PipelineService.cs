@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 using RabbitMQLibrary.Messages.PipelineOrchestrator;
@@ -45,7 +46,7 @@ namespace DAPM.ClientApi.Services
             };
 
             _createInstanceProducer.PublishMessage(message);
-            _logger.LogDebug("CreatePipelineExecutionRequest Enqueued");
+            _logger.PipelineCreateEnqueued();
 
             return ticketId;
         }
@@ -63,7 +64,7 @@ namespace DAPM.ClientApi.Services
 
             _getPipelineExecutionStatusProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetPipelineExecutionStatus Enqueued");
+            _logger.PipelineGetExecutionEnqueued();
 
             return ticketId;
         }
@@ -83,7 +84,7 @@ namespace DAPM.ClientApi.Services
 
             _getPipelinesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetPipelinesRequest Enqueued");
+            _logger.PipelineGetPipelineEnqueued();
 
             return ticketId;
         }
@@ -104,7 +105,7 @@ namespace DAPM.ClientApi.Services
 
             _pipelineStartCommandProducer.PublishMessage(message);
 
-            _logger.LogDebug("PipelineStartCommandRequest Enqueued");
+            _logger.PipelineStartEnqueued();
 
             return ticketId;
         }

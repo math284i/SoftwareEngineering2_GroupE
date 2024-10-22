@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
@@ -20,8 +21,11 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(PostItemProcessResult message)
         {
-            _logger.LogInformation("CreateNewItemResultMessage received");
-
+            _logger.PostItemReceived();
+            var itemIdsString = "itemIds";
+            var itemTypeString = "itemType";
+            var succeededString = "succeeded";
+            var messageString = "message";
 
             // Objects used for serialization
             JToken result = new JObject();
@@ -30,10 +34,10 @@ namespace DAPM.ClientApi.Consumers
             JToken idsJSON = JToken.FromObject(message.ItemIds, serializer);
 
             //Serialization
-            result["itemIds"] = idsJSON;
-            result["itemType"] = message.ItemType;
-            result["succeeded"] = message.Succeeded;
-            result["message"] = message.Message;  
+            result[itemIdsString] = idsJSON;
+            result[itemTypeString] = message.ItemType;
+            result[succeededString] = message.Succeeded;
+            result[messageString] = message.Message;  
 
             // Update resolution
             _ticketService.UpdateTicketResolution(message.TicketId, result);

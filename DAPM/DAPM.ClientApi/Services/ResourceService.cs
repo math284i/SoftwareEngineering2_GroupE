@@ -4,6 +4,7 @@ using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using System.Globalization;
 using System.Resources;
+using DAPM.ClientApi.LoggingExtensions;
 
 namespace DAPM.ClientApi.Services
 {
@@ -40,7 +41,7 @@ namespace DAPM.ClientApi.Services
 
             _getResourcesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetResourcesRequest Enqueued");
+            _logger.ResourceGetEnqueued();
 
             return ticketId;
         }
@@ -60,7 +61,7 @@ namespace DAPM.ClientApi.Services
 
             _getResourceFilesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetResourceFilesRequest Enqueued");
+            _logger.ResourceGetFilesEnqueued();
 
             return ticketId;
         }

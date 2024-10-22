@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
@@ -21,10 +22,15 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(GetResourceFilesProcessResult message)
         {
-            _logger.LogInformation("GetResourceFilesProcessResult received");
-
-            _logger.LogInformation($"FILE NAME {message.Files.First().Name}");
+            _logger.GetResourceFilesReceived();
+            
+            _logger.FileName(message.Files.First().Name);
+            
             IEnumerable<FileDTO> filesDTOs = message.Files;
+
+            var filePathString = "filePath";
+            var fileNameString = "fileName";
+            var fileFormatString = "fileFormat";
 
             if(filesDTOs.Any())
             {
@@ -41,9 +47,9 @@ namespace DAPM.ClientApi.Consumers
 
                 JToken result = new JObject();
                 //Serialization
-                result["filePath"] = filePath;
-                result["fileName"] = firstFile.Name;
-                result["fileFormat"] = firstFile.Extension;
+                result[filePathString] = filePath;
+                result[fileNameString] = firstFile.Name;
+                result[fileFormatString] = firstFile.Extension;
 
 
                 // Update resolution

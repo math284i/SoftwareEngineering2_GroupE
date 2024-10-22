@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
@@ -19,7 +20,11 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(PostPipelineCommandProcessResult message)
         {
-            _logger.LogInformation("PostPipelineCommandProcessResult received");
+            _logger.PostPipelineRecieved();
+
+            var executionIdString = "executionId";
+            var succeededString = "succeeded";
+            var messageString = "message";
 
 
             // Objects used for serialization
@@ -27,9 +32,9 @@ namespace DAPM.ClientApi.Consumers
             JsonSerializer serializer = JsonSerializer.Create(new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
 
             //Serialization
-            result["executionId"] = message.ExecutionId;
-            result["succeeded"] = message.Succeeded;
-            result["message"] = message.Message;
+            result[executionIdString] = message.ExecutionId;
+            result[succeededString] = message.Succeeded;
+            result[messageString] = message.Message;
 
             // Update resolution
             _ticketService.UpdateTicketResolution(message.TicketId, result);

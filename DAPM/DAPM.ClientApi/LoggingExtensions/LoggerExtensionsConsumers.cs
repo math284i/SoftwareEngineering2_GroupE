@@ -16,15 +16,29 @@ public static partial class LoggerExtensionsConsumers
     public static partial void GetPipelineReceived(this ILogger logger);
 
     // Get Pipeline process
+    [LoggerMessage(LogLevel.Information, "GetPipelinesProcessResult received")]
+    public static partial void GetPipelineProcessReceived(this ILogger logger);
 
     // Get Repositories
+    [LoggerMessage(LogLevel.Information, "GetRepositoriesProcessResult received")]
+    public static partial void GetRepositoriesReceived(this ILogger logger);
 
     // Get ResourceFiles
+    [LoggerMessage(LogLevel.Information, "GetResourceFilesProcessResult received")]
+    public static partial void GetResourceFilesReceived(this ILogger logger);
+
+    [LoggerMessage(LogLevel.Information, "FILE NAME {fileName}")]
+    public static partial void FileName(this ILogger logger, string fileName);
 
     // Get RessourceProcess
+    [LoggerMessage(LogLevel.Information, "GetResourcesProcessResult received")]
+    public static partial void GetRessourceProcessReceived(this ILogger logger);
 
     // Post item
+    [LoggerMessage(LogLevel.Information, "CreateNewItemResultMessage received")]
+    public static partial void PostItemReceived(this ILogger logger);
 
     // Post Pipeline
-
+    [LoggerMessage(LogLevel.Information, "PostPipelineCommandProcessResult received")]
+    public static partial void PostPipelineRecieved(this ILogger logger);
 }

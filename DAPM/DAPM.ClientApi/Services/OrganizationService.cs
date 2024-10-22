@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 using RabbitMQLibrary.Messages.ResourceRegistry;
@@ -41,7 +42,7 @@ namespace DAPM.ClientApi.Services
 
             _getOrganizationsRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetOrganizationByIdMessage Enqueued");
+            _logger.OrganizationByIdEnqueued();
 
             return ticketId;
         }
@@ -60,7 +61,7 @@ namespace DAPM.ClientApi.Services
 
             _getOrganizationsRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetOrganizationsMessage Enqueued");
+            _logger.OrganizationMessageEnqueued();
 
             return ticketId;
 
@@ -80,7 +81,7 @@ namespace DAPM.ClientApi.Services
 
             _getRepositoriesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetRepositoriesRequest Enqueued");
+            _logger.OrganizationGetRepositoryEnqueued();
 
             return ticketId;
         }
@@ -99,7 +100,7 @@ namespace DAPM.ClientApi.Services
 
             _postRepositoryRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("PostRepositoryRequest Enqueued");
+            _logger.OrganizationPostRepositoryEnqueued();
 
             return ticketId;
         }

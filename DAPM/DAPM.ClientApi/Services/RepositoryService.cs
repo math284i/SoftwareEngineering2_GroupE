@@ -7,6 +7,7 @@ using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 using System.IO;
 using System.Xml.Linq;
+using DAPM.ClientApi.LoggingExtensions;
 
 namespace DAPM.ClientApi.Services
 {
@@ -55,7 +56,7 @@ namespace DAPM.ClientApi.Services
 
             _getRepositoriesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetRepositoriesRequest Enqueued");
+            _logger.RepositoryGetRepositoriesEnqueued();
 
             return ticketId;
         }
@@ -74,7 +75,7 @@ namespace DAPM.ClientApi.Services
 
             _getResourcesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetResourcesRequest Enqueued");
+            _logger.RepositoryGetResourcesEnqueued();
 
             return ticketId;
         }
@@ -94,7 +95,7 @@ namespace DAPM.ClientApi.Services
 
             _getPipelinesRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("GetPipelinesRequest Enqueued");
+            _logger.RepositoryGetPipelineEnqueued();
 
             return ticketId;
         }
@@ -116,7 +117,7 @@ namespace DAPM.ClientApi.Services
 
             _postPipelineRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("PostPipelineToRepoMessage Enqueued");
+            _logger.RepositoryPostPipelineEnqueued();
 
 
             return ticketId;
@@ -150,7 +151,7 @@ namespace DAPM.ClientApi.Services
 
             _postResourceRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("PostResourceRequest Enqueued");
+            _logger.RepositoryPostResourceEnqueued();
 
             return ticketId;
         }
@@ -191,8 +192,9 @@ namespace DAPM.ClientApi.Services
             };
 
             _postOperatorRequestProducer.PublishMessage(message);
-
-            _logger.LogDebug("PostResourceRequest Enqueued");
+            
+            // TODO Fix
+            _logger.RepositoryPostResourceEnqueued(); //Isn't this wrong? Should perhaps be operator
 
             return ticketId;
         }
