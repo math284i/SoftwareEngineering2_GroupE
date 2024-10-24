@@ -1,4 +1,5 @@
-﻿using DAPM.OperatorMS.Api.Services.Interfaces;
+﻿using DAPM.OperatorMS.Api.LoggerExtensions;
+using DAPM.OperatorMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Operator;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromOperator;
@@ -23,7 +24,7 @@ namespace DAPM.OperatorMS.Api.Consumers
 
         public Task ConsumeAsync(PostInputResourceMessage message) 
         {
-            _logger.LogInformation("PostInputResourceMessage Received");
+            _logger.PostInputMessageReceived();
 
             
             _dockerService.PostInputResource(message.PipelineExecutionId, message.Resource);

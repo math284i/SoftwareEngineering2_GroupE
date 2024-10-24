@@ -1,4 +1,5 @@
-﻿using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
+﻿using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
+using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.ClientApi;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
@@ -23,7 +24,7 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
         }
         public async Task ConsumeAsync(PostRepositoryToRegistryMessage message)
         {
-            _logger.LogInformation("PostRepositoryToRegistryMessage received");
+            _logger.PostRepositoryMessageReceived();
 
 
             var createdRepository = await _peerService.PostRepositoryToOrganization(message.Repository.OrganizationId, message.Repository);
@@ -46,7 +47,7 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
                 };
 
                 _postRepoToRegistryResultMessageProducer.PublishMessage(resultMessage);
-                _logger.LogInformation("PostRepositoryToRegistryResultMessage published");
+                _logger.PostRepositoryMessagePublished();
             }
 
 

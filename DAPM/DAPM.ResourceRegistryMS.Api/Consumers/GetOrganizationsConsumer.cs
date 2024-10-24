@@ -5,6 +5,7 @@ using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 using System.Linq;
+using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
 
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
@@ -26,7 +27,7 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
 
         public async Task ConsumeAsync(GetOrganizationsMessage message)
         {
-            _logger.LogInformation("Get OrganizationsMessage received");
+            _logger.GetOrganizationMessageReceived();
 
             var peers = Enumerable.Empty<Peer>();
 

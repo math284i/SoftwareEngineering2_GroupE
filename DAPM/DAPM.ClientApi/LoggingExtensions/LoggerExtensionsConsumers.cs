@@ -40,5 +40,5 @@ public static partial class LoggerExtensionsConsumers
 
     // Post Pipeline
     [LoggerMessage(LogLevel.Information, "PostPipelineCommandProcessResult received")]
-    public static partial void PostPipelineRecieved(this ILogger logger);
+    public static partial void PostPipelineRecieved(this ILogger logger);e
 }

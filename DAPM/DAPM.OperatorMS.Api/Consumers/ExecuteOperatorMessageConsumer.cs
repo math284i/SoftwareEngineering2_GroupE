@@ -1,4 +1,5 @@
-﻿using RabbitMQLibrary.Interfaces;
+﻿using DAPM.OperatorMS.Api.LoggerExtensions;
+using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Operator;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromOperator;
 
@@ -21,9 +22,9 @@ namespace DAPM.OperatorMS.Api.Consumers
 
         public async Task ConsumeAsync(ExecuteOperatorMessage message) 
         {
-            _logger.LogInformation("ExecuteMinerMessage Received");
+            _logger.ExecuteMessageReceived();
 
-            bool succeeded = await _operatorEngine.StartOperatorExecution(message);
+            var succeeded = await _operatorEngine.StartOperatorExecution(message);
 
             // Publish ExecuteOperatorResultMessage to Orchestrator
             var executeOperatorResultMessageProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<ExecuteOperatorResultMessage>>();

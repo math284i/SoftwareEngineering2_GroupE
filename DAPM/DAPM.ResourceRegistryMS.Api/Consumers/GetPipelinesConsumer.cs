@@ -1,4 +1,5 @@
-﻿using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
+﻿using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
+using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
@@ -26,7 +27,7 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
 
         public async Task ConsumeAsync(GetPipelinesMessage message)
         {
-            _logger.LogInformation("GetPipelinesMessage received");
+            _logger.GetPipelineMessageReceived();
 
             var pipelines = Enumerable.Empty<Models.Pipeline>();
 

@@ -5,6 +5,7 @@ using Docker.DotNet.Models;
 using RabbitMQLibrary.Models;
 using System.Text;
 using System.Text.RegularExpressions;
+using DAPM.OperatorMS.Api.LoggerExtensions;
 
 namespace DAPM.OperatorMS.Api.Services
 {
@@ -31,13 +32,12 @@ namespace DAPM.OperatorMS.Api.Services
                 Directory.CreateDirectory(inputFilesDirPath);
                 Directory.CreateDirectory(outputFilesDirPath);
                 var filePath = Path.Combine(inputFilesDirPath, $"{inputResource.Id}");
-                _logger.LogInformation($"INPUT RESOURCE POSTED {inputResource.Id} {inputResource.Name}" +
-                $" {inputResource.File.Content.Length} IN PATH {filePath}");
+                _logger.DockerResourcePosted(inputResource.Id, inputResource.Name, inputResource.File.Content.Length, filePath);
                 File.WriteAllBytes(filePath, inputResource.File.Content);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred: {ex.Message}");
+                _logger.DockerFailed(ex);
                 throw;
             }
         }
@@ -56,7 +56,7 @@ namespace DAPM.OperatorMS.Api.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred: {ex.Message}");
+                _logger.DockerFailed(ex);
                 throw;
             }
         }
@@ -100,7 +100,7 @@ namespace DAPM.OperatorMS.Api.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred: {ex.Message}");
+                _logger.DockerFailed(ex);
                 throw;
             }
         }
@@ -194,7 +194,7 @@ namespace DAPM.OperatorMS.Api.Services
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogInformation("Exception: " + ex.Message);
+                    _logger.DockerFailed(ex);
                 }
             }
 

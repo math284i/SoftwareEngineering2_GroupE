@@ -1,4 +1,5 @@
-﻿using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
+﻿using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
+using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.ResourceRegistry;
@@ -20,27 +21,23 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
         }
         public async Task ConsumeAsync(PostPipelineToRegistryMessage message)
         {
-            _logger.LogInformation("PostPipelineToRegistryMessage received");
+            _logger.PostPipelineMessageReceived();
 
             var pipelineDto = message.Pipeline;
-            if (pipelineDto != null)
+            if (pipelineDto == null) return;
+            var createdPipeline = await _repositoryService.AddPipelineToRepository(pipelineDto.OrganizationId, pipelineDto.RepositoryId, pipelineDto);
+            if (createdPipeline == null) return;
+            var resultMessage = new PostPipelineToRegistryResultMessage
             {
-                var createdPipeline = _repositoryService.AddPipelineToRepository(pipelineDto.OrganizationId, pipelineDto.RepositoryId, pipelineDto);
-                if (createdPipeline != null)
-                {
-                    var resultMessage = new PostPipelineToRegistryResultMessage
-                    {
-                        ProcessId = message.ProcessId,
-                        TimeToLive = TimeSpan.FromMinutes(1),
-                        Message = "Item created successfully",
-                        Succeeded = true,
-                        Pipeline = pipelineDto
-                    };
+                ProcessId = message.ProcessId,
+                TimeToLive = TimeSpan.FromMinutes(1),
+                Message = "Item created successfully",
+                Succeeded = true,
+                Pipeline = pipelineDto
+            };
 
-                    _postPipelineToRegistryResultProducer.PublishMessage(resultMessage);
-                    _logger.LogInformation("PostPipelineToRegistryResultMessage published");
-                }
-            }
+            _postPipelineToRegistryResultProducer.PublishMessage(resultMessage);
+            _logger.PostPipelineMessagePublished();
 
             return;
         }
