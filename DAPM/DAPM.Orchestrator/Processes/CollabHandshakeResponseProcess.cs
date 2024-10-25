@@ -1,4 +1,5 @@
-﻿using DAPM.Orchestrator.Services.Models;
+﻿using DAPM.Orchestrator.LoggerExtensions;
+using DAPM.Orchestrator.Services.Models;
 using DAPM.Orchestrator.Services;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQLibrary.Interfaces;
@@ -30,7 +31,7 @@ namespace DAPM.Orchestrator.Processes
 
         public override void StartProcess()
         {
-            _logger.LogInformation("HANDSHAKE RESPONSE PROCESS STARTED");
+            _logger.ResponseHandshake();
             var sendRequestResponseProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<SendHandshakeRequestResponseMessage>>();
 
             var isRequestAccepted = true;
@@ -62,7 +63,7 @@ namespace DAPM.Orchestrator.Processes
  
         public override void OnRegistryUpdate(RegistryUpdateMessage message)
         {
-            _logger.LogInformation("REGISTRY UPDATE RECEIVED");
+            _logger.ResponseRegistry();
 
             var applyRegistryUpdateProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<ApplyRegistryUpdateMessage>>();
 
@@ -128,7 +129,7 @@ namespace DAPM.Orchestrator.Processes
         public override void OnRegistryUpdateAck(RegistryUpdateAckMessage message)
         {
 
-            _logger.LogInformation("HANDSHAKE ACK RECEIVED");
+            _logger.ResponseHandshakeReceived();
             var sendHandshakeAckProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<SendRegistryUpdateAckMessage>>();
 
             var senderIdentityDto = new IdentityDTO()

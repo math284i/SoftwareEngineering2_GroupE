@@ -11,6 +11,7 @@ using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 using System.Diagnostics;
 using System.Xml.Linq;
+using DAPM.Orchestrator.LoggerExtensions;
 
 namespace DAPM.Orchestrator.Processes
 {
@@ -36,7 +37,7 @@ namespace DAPM.Orchestrator.Processes
         public override void StartProcess()
         {
 
-            _logger.LogInformation("HANDSHAKE STARTED");
+            _logger.ProcessHandshake();
             var sendHandshakeRequestProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<SendHandshakeRequestMessage>>();
 
 
@@ -60,7 +61,7 @@ namespace DAPM.Orchestrator.Processes
 
         public override void OnHandshakeRequestResponse(HandshakeRequestResponseMessage message)
         {
-            _logger.LogInformation("HANDSHAKE REQUEST RESPONSE RECEIVED");
+            _logger.ProcessHandshakeReceived();
             if (message.IsRequestAccepted == false)
             {
                 EndProcess();
@@ -121,7 +122,7 @@ namespace DAPM.Orchestrator.Processes
         public override void OnRegistryUpdate(RegistryUpdateMessage message)
         {
 
-            _logger.LogInformation("REGISTRY UPDATE RECEIVED");
+            _logger.ProcessRegistry();
             var applyRegistryUpdateProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<ApplyRegistryUpdateMessage>>();
             
 
@@ -162,7 +163,7 @@ namespace DAPM.Orchestrator.Processes
 
         public override void OnRegistryUpdateAck(RegistryUpdateAckMessage message)
         {
-            _logger.LogInformation("REGISTRY UPDATE ACK RECEIVED");
+            _logger.ProcessRegistryReceived();
             var handshakeProcessResultProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<CollabHandshakeProcessResult>>();
 
 
