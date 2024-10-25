@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
@@ -20,8 +21,8 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(GetPipelineExecutionStatusRequestResult message)
         {
-            _logger.LogInformation("GetPipelineExecutionStatusRequestResult received");
-
+            _logger.GetPipelineReceived();
+            var statusString = "status";
 
             var status = message.Status;
 
@@ -32,7 +33,7 @@ namespace DAPM.ClientApi.Consumers
 
             //Serialization
             JToken statusJson = JToken.FromObject(status, serializer);
-            result["status"] = statusJson;
+            result[statusString] = statusJson;
 
 
             // Update resolution

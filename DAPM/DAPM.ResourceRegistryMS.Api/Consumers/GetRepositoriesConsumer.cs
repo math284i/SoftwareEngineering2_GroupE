@@ -1,4 +1,5 @@
-﻿using DAPM.ResourceRegistryMS.Api.Models;
+﻿using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
+using DAPM.ResourceRegistryMS.Api.Models;
 using DAPM.ResourceRegistryMS.Api.Services;
 using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
@@ -29,7 +30,7 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
 
         public async Task ConsumeAsync(GetRepositoriesMessage message)
         {
-            _logger.LogInformation("GetRepositoriesMessage received");
+            _logger.GetRepositoriesMessageReceived();
 
             var repositories = Enumerable.Empty<Repository>();
 

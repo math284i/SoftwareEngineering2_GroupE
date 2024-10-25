@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
@@ -21,8 +22,8 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(GetRepositoriesProcessResult message)
         {
-            _logger.LogInformation("GetRepositoriesProcessResult received");
-
+            _logger.GetRepositoriesReceived();
+            var repositoriesString = "repositories";
 
             IEnumerable<RepositoryDTO> repositoriesDTOs = message.Repositories;
 
@@ -33,7 +34,7 @@ namespace DAPM.ClientApi.Consumers
 
             //Serialization
             JToken repositoriesJSON = JToken.FromObject(repositoriesDTOs, serializer);
-            result["repositories"] = repositoriesJSON;
+            result[repositoriesString] = repositoriesJSON;
 
 
             // Update resolution

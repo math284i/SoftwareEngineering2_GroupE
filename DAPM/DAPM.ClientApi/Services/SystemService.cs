@@ -1,4 +1,5 @@
-﻿using DAPM.ClientApi.Services.Interfaces;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using DAPM.ClientApi.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 
@@ -33,7 +34,7 @@ namespace DAPM.ClientApi.Services
 
             _collabHandshakeRequestProducer.PublishMessage(message);
 
-            _logger.LogDebug("CollabHandshakeRequest Enqueued");
+            _logger.SystemCollabEnqueued();
 
             return ticketId;
         }

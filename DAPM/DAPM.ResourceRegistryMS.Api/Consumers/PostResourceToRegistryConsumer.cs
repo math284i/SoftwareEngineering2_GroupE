@@ -1,4 +1,5 @@
-﻿using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
+﻿using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
+using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.ClientApi;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
@@ -21,27 +22,23 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
         }
         public async Task ConsumeAsync(PostResourceToRegistryMessage message)
         {
-            _logger.LogInformation("PostResourceToRegistryMessage received");
+            _logger.PostResourceMessageReceived();
 
             var resourceDto = message.Resource;
-            if (resourceDto != null) 
+            if (resourceDto == null) return;
+            var createdResource = _resourceService.AddResource(resourceDto);
+            if (createdResource == null) return;
+            var resultMessage = new PostResourceToRegistryResultMessage
             {
-                var createdResource = _resourceService.AddResource(resourceDto);
-                if(createdResource != null)
-                {
-                    var resultMessage = new PostResourceToRegistryResultMessage
-                    {
-                        ProcessId = message.ProcessId,
-                        TimeToLive = TimeSpan.FromMinutes(1),
-                        Message = "Item created successfully",
-                        Succeeded = true,
-                        Resource = resourceDto
-                    };
+                ProcessId = message.ProcessId,
+                TimeToLive = TimeSpan.FromMinutes(1),
+                Message = "Item created successfully",
+                Succeeded = true,
+                Resource = resourceDto
+            };
 
-                    _postResourceToRegistryResultProducer.PublishMessage(resultMessage);
-                    _logger.LogInformation("PostResourceToRegistryResultMessage published");
-                }
-            }
+            _postResourceToRegistryResultProducer.PublishMessage(resultMessage);
+            _logger.PostResourceMessagePublished();
 
             return;
         }

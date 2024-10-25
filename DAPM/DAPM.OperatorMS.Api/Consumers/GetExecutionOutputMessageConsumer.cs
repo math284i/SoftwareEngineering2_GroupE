@@ -1,4 +1,5 @@
-﻿using RabbitMQLibrary.Messages.Operator;
+﻿using DAPM.OperatorMS.Api.LoggerExtensions;
+using RabbitMQLibrary.Messages.Operator;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromOperator;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Models;
@@ -23,9 +24,9 @@ namespace DAPM.OperatorMS.Api.Consumers
 
         public Task ConsumeAsync(GetExecutionOutputMessage message) 
         {
-            _logger.LogInformation("GetExecutionOutputMessage Received");
+            _logger.GetExecutionMessageReceived();
 
-            ResourceDTO outputResource = _dockerService.GetExecutionOutputResource(message.PipelineExecutionId, message.ResourceId);
+            var outputResource = _dockerService.GetExecutionOutputResource(message.PipelineExecutionId, message.ResourceId);
 
             // Publish ExecuteOperatorResultMessage to Orchestrator
             var getExecutionOutputResultMessageProducer = _serviceScope.ServiceProvider.GetRequiredService<IQueueProducer<GetExecutionOutputResultMessage>>();

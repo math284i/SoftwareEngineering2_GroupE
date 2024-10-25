@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using DAPM.ClientApi.LoggingExtensions;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using RabbitMQLibrary.Interfaces;
@@ -21,8 +22,11 @@ namespace DAPM.ClientApi.Consumers
 
         public Task ConsumeAsync(CollabHandshakeProcessResult message)
         {
-            _logger.LogInformation("CollabHandshakeProcessResult received");
-
+            _logger.CollabReceived();
+            var requestedString = "requestedPeerIdentity";
+            var succeededString = "succeeded";
+            var messageString = "message";
+            
             // Objects used for serialization
             JToken result = new JObject();
             JsonSerializer serializer = JsonSerializer.Create(new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
@@ -30,9 +34,9 @@ namespace DAPM.ClientApi.Consumers
             JToken requestedPeerIdentityJson = JToken.FromObject(message.RequestedPeerIdentity, serializer);
 
             //Serialization
-            result["requestedPeerIdentity"] = requestedPeerIdentityJson;
-            result["succeeded"] = message.Succeeded;
-            result["message"] = message.Message;
+            result[requestedString] = requestedPeerIdentityJson;
+            result[succeededString] = message.Succeeded;
+            result[messageString] = message.Message;
 
 
             // Update resolution

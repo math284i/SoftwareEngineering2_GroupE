@@ -1,4 +1,5 @@
-﻿using DAPM.Orchestrator.Processes;
+﻿using DAPM.Orchestrator.LoggerExtensions;
+using DAPM.Orchestrator.Processes;
 using DAPM.Orchestrator.Processes.PipelineActions;
 using DAPM.Orchestrator.Processes.PipelineCommands;
 using DAPM.Orchestrator.Services.Models;
@@ -23,7 +24,7 @@ namespace DAPM.Orchestrator
 
         public void DeleteProcess(Guid processId)
         {
-            _logger.LogInformation("ORCHESTRATOR ENGINE removing process with id " + processId.ToString());
+            _logger.OrchestratorDeleting(processId);
             _processes.Remove(processId);
         }
 
