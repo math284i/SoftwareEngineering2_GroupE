@@ -13,6 +13,13 @@ namespace RabbitMQLibrary.Models
         public Guid? ResourceId { get; set; }
         public string? Name { get; set; }
     }
+
+    public class Organisation
+    {
+        public Guid OrganizationId { get; set; }
+        public string Domain { get; set; }
+        public string Name { get; set; }
+    }
    
     public class Handle
     {
@@ -21,7 +28,8 @@ namespace RabbitMQLibrary.Models
     
     public class InstantiationData
     {
-        public Resource Resource { get; set; }
+        public Resource? Resource { get; set; }
+        public Organisation? Organisation { get; set; }
     }
     public class TemplateData
     {
