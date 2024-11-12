@@ -31,7 +31,7 @@ namespace DAPM.Orchestrator
         public void OnGetResourceFilesFromOperatorResult(GetExecutionOutputResultMessage message);
         public void OnSendResourceToPeerResult(SendResourceToPeerResultMessage message);
         public void OnActionResultFromPeer(ActionResultReceivedMessage message);
-
+        public void OnDeleteRepositoryFromOrganizationResult(DeleteRepositoryFromOrganizationResultMessage message);
 
         public void OnHandshakeRequestResponse(HandshakeRequestResponseMessage message);
         public void OnRegistryUpdate(RegistryUpdateMessage message);

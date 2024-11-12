@@ -141,6 +141,13 @@ namespace DAPM.Orchestrator
             _processes[processId] = getPipelineExecutionStatusProcess;
             getPipelineExecutionStatusProcess.StartProcess();
         }
+        public void StartDeleteRepositoryProcess(Guid ticketId, Guid organizationId, Guid repositoryId)
+        {
+            var processId = Guid.NewGuid();
+            var deleteRepositoryProcess = new DeleteRepositoryProcess(this, _serviceProvider, ticketId, processId, organizationId, repositoryId);
+            _processes[processId] = deleteRepositoryProcess;
+            deleteRepositoryProcess.StartProcess();
+        }
 
         #endregion
 

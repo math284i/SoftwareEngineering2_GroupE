@@ -21,6 +21,7 @@ namespace DAPM.ClientApi.Services
         IQueueProducer<PostOperatorRequest> _postOperatorRequestProducer;
         IQueueProducer<PostPipelineRequest> _postPipelineRequestProducer;
         IQueueProducer<GetPipelinesRequest> _getPipelinesRequestProducer;
+        IQueueProducer<DeleteRepositoryByIdRequest> _deleteRepositoryRequestProducer;
 
         public RepositoryService(
             ILogger<RepositoryService> logger,
@@ -30,7 +31,8 @@ namespace DAPM.ClientApi.Services
             IQueueProducer<PostResourceRequest> postResourceRequestProducer,
             IQueueProducer<PostPipelineRequest> postPipelineRequestProducer,
             IQueueProducer<GetPipelinesRequest> getPipelinesRequestProducer,
-            IQueueProducer<PostOperatorRequest> postOperatorRequestProducer) 
+            IQueueProducer<PostOperatorRequest> postOperatorRequestProducer,
+            IQueueProducer<DeleteRepositoryByIdRequest> deleteRepositoryRequestProducer) 
         {
             _ticketService = ticketService;
             _logger = logger;
@@ -40,6 +42,7 @@ namespace DAPM.ClientApi.Services
             _postPipelineRequestProducer = postPipelineRequestProducer;
             _getPipelinesRequestProducer = getPipelinesRequestProducer;
             _postOperatorRequestProducer = postOperatorRequestProducer;
+            _deleteRepositoryRequestProducer = deleteRepositoryRequestProducer;
         }
 
         public Guid GetRepositoryById(Guid organizationId, Guid repositoryId)
@@ -195,6 +198,25 @@ namespace DAPM.ClientApi.Services
             
             // TODO Fix
             _logger.RepositoryPostResourceEnqueued(); //Isn't this wrong? Should perhaps be operator
+
+            return ticketId;
+        }
+        public Guid DeleteRepositoryById(Guid organizationId, Guid repositoryId)
+        {
+            Guid ticketId = _ticketService.CreateNewTicket(TicketResolutionType.Json);
+
+            var message = new DeleteRepositoryByIdRequest
+            {
+                MessageId = Guid.NewGuid(),
+                TimeToLive = TimeSpan.FromMinutes(1),
+                TicketId = ticketId,
+                OrganizationId = organizationId,
+                RepositoryId = repositoryId
+            };
+
+            _deleteRepositoryRequestProducer.PublishMessage(message);
+
+            _logger.LogDebug("DeleteRepositoryByIdRequest Enqueued");
 
             return ticketId;
         }

@@ -137,5 +137,22 @@ namespace DAPM.RepositoryMS.Api.Services
         {
             throw new NotImplementedException();
         }
+        public async Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId)
+        {
+            _logger.LogInformation($"Attempting to delete repository with ID {repositoryId} for organization {organizationId}");
+
+            var result = await _repositoryRepository.DeleteRepository(organizationId, repositoryId);
+
+            if (result)
+            {
+                _logger.LogInformation($"Successfully deleted repository with ID {repositoryId}");
+            }
+            else
+            {
+                _logger.LogWarning($"Repository with ID {repositoryId} not found or does not belong to organization {organizationId}");
+            }
+
+            return result;
+        }
     }
 }

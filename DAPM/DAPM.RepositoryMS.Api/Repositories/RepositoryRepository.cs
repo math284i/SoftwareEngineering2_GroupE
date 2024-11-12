@@ -26,5 +26,20 @@ namespace DAPM.RepositoryMS.Api.Repositories
         {
             return await _context.Repositories.FirstOrDefaultAsync(r => r.Id == repositoryId);
         }
+        public async Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId)
+        {
+            var repository = await _context.Repositories.FirstOrDefaultAsync(r => r.Id == repositoryId);
+
+            if (repository == null)
+            {
+                // Repository not found or does not belong to the organization
+                return false;
+            }
+
+            _context.Repositories.Remove(repository);
+            _context.SaveChanges();
+
+            return true;
+        }
     }
 }

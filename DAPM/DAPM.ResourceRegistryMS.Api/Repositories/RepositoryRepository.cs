@@ -7,10 +7,12 @@ namespace DAPM.ResourceRegistryMS.Api.Repositories
     public class RepositoryRepository : IRepositoryRepository
     {
         private readonly ResourceRegistryDbContext _context;
+        private readonly ILogger<RepositoryRepository> _logger;
 
-        public RepositoryRepository(ResourceRegistryDbContext context)
+        public RepositoryRepository(ResourceRegistryDbContext context, ILogger<RepositoryRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<Repository> PostRepository(Repository repository)
@@ -40,6 +42,22 @@ namespace DAPM.ResourceRegistryMS.Api.Repositories
             }
 
             return repository;
+        }
+
+        public async Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId)
+        {
+            var repository = _context.Repositories.Include(r => r.Peer).Single(r => r.Id == repositoryId && r.PeerId == organizationId); 
+
+            if (repository == null)
+            {
+                _logger.LogWarning($"Repository with ID {repositoryId} not found or does not belong to organization {organizationId}.");
+                return false;
+            }
+
+            _context.Repositories.Remove(repository);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation($"Repository with ID {repositoryId} deleted.");
+            return true;
         }
     }
 }

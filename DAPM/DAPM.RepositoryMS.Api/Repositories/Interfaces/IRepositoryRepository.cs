@@ -6,5 +6,6 @@ namespace DAPM.RepositoryMS.Api.Repositories.Interfaces
     {
         Task<Repository> GetRepositoryById(Guid repositoryId);
         Task<Repository> CreateRepository(string name);
+        Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId);
     }
 }

@@ -11,6 +11,7 @@ using RabbitMQLibrary.Extensions;
 using System.Text;
 using DAPM.ResourceRegistryMS.Api.Consumers;
 using RabbitMQLibrary.Messages.ResourceRegistry;
+using RabbitMQLibrary.Messages.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,7 +57,7 @@ builder.Services.AddQueueMessageConsumer<PostPipelineToRegistryConsumer, PostPip
 builder.Services.AddQueueMessageConsumer<ApplyRegistryUpdateConsumer, ApplyRegistryUpdateMessage>();
 builder.Services.AddQueueMessageConsumer<GetEntriesFromOrgConsumer, GetEntriesFromOrgMessage>();
 builder.Services.AddQueueMessageConsumer<PostPeerConsumer, PostPeerMessage>();
-
+builder.Services.AddQueueMessageConsumer<DeleteRepositoryFromOrganizationMessageConsumer, DeleteRepositoryFromOrganizationMessage>();
 
 // Add services to the container.
 

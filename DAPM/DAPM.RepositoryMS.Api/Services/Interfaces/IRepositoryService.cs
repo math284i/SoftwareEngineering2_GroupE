@@ -10,5 +10,6 @@ namespace DAPM.RepositoryMS.Api.Services.Interfaces
         Task<Models.PostgreSQL.Pipeline> CreateNewPipeline(Guid repositoryId, string name, RabbitMQLibrary.Models.Pipeline pipeline);
         Task<Repository> CreateNewRepository(string name);
         Task<IEnumerable<Models.PostgreSQL.Pipeline>> GetPipelinesFromRepository(Guid repositoryId);
+        Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId);
     }
 }

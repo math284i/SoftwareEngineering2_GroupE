@@ -81,6 +81,12 @@ namespace DAPM.ClientApi.Controllers
             Guid id = _repositoryService.PostPipelineToRepository(organizationId, repositoryId, pipelineApiDto);
             return Ok(new ApiResponse { RequestName = "PostPipelineToRepository", TicketId = id });
         }
-
+        [HttpDelete("{organizationId}/repositories/{repositoryId}")]
+        [SwaggerOperation(Description = "Deletes a repository by id. You need to have a repository with this id to delete it.")]
+        public async Task<ActionResult<Guid>> DeleteRepositoryById(Guid organizationId, Guid repositoryId)
+        {
+            Guid id = _repositoryService.DeleteRepositoryById(organizationId, repositoryId);
+            return Ok(new ApiResponse { RequestName = "DeleteRepositoryById", TicketId = id});
+        }
     }
 }

@@ -175,5 +175,10 @@ namespace DAPM.Orchestrator
         {
             return;
         }
+
+        public virtual void OnDeleteRepositoryFromOrganizationResult(DeleteRepositoryFromOrganizationResultMessage message)
+        {
+            return;
+        }
     }
 }

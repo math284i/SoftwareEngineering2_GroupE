@@ -38,10 +38,6 @@ namespace DAPM.ResourceRegistryMS.Api.Services
             return await _pipelineRepository.AddPipeline(pipelineToInsert);
         }
 
-        public Task<bool> DeleteRepository(Guid organizationId, Guid repositoryId)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IEnumerable<Repository>> GetAllRepositories()
         {
@@ -61,6 +57,10 @@ namespace DAPM.ResourceRegistryMS.Api.Services
         public async Task<IEnumerable<Resource>> GetResourcesOfRepository(Guid organizationId, Guid repositoryId)
         {
             return _resourceRepository.GetResourcesOfRepository(organizationId, repositoryId);
+        }
+        public async Task<bool> DeleteRepositoryById(Guid organizationId, Guid repositoryId)
+        {
+            return await _repositoryRepository.DeleteRepository(organizationId, repositoryId);
         }
     }
 }
