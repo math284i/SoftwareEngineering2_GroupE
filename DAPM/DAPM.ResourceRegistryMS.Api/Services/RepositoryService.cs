@@ -27,13 +27,15 @@ namespace DAPM.ResourceRegistryMS.Api.Services
 
         public async Task<Pipeline> AddPipelineToRepository(Guid organizationId, Guid repositoryId, RabbitMQLibrary.Models.PipelineDTO pipeline)
         {
+            _logger.Log(LogLevel.Information, "Inserting pipeline(before): " + pipeline.Timestamp.ToString());
             var pipelineToInsert = new Pipeline()
             {
                 Id = pipeline.Id,
                 RepositoryId = pipeline.RepositoryId,
                 PeerId = pipeline.OrganizationId,
-                Name = pipeline.Name,
+                Name = pipeline.Name + "/" + pipeline.Timestamp.ToString(),
             };
+            _logger.Log(LogLevel.Information, "Inserting pipeline(after): " + pipelineToInsert.Name);
 
             return await _pipelineRepository.AddPipeline(pipelineToInsert);
         }
