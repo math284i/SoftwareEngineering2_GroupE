@@ -82,7 +82,7 @@ namespace DAPM.ClientApi.Services
 
             return ticketId;
         }
-
+        // pineapple
         public Guid GetPipelinesOfRepository(Guid organizationId, Guid repositoryId)
         {
             Guid ticketId = _ticketService.CreateNewTicket(TicketResolutionType.Json);
@@ -95,7 +95,7 @@ namespace DAPM.ClientApi.Services
                 RepositoryId = repositoryId,
                 PipelineId = null
             };
-
+            
             _getPipelinesRequestProducer.PublishMessage(message);
 
             _logger.RepositoryGetPipelineEnqueued();

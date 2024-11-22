@@ -1,4 +1,4 @@
-﻿using DAPM.RepositoryMS.Api.Models.PostgreSQL;
+using DAPM.RepositoryMS.Api.Models.PostgreSQL;
 using DAPM.RepositoryMS.Api.Services.Interfaces;
 using Newtonsoft.Json;
 using RabbitMQLibrary.Interfaces;
@@ -44,14 +44,15 @@ namespace DAPM.RepositoryMS.Api.Consumers
 
             foreach (var pipeline in pipelines)
             {
+                var pipelineJson = JsonConvert.DeserializeObject<RabbitMQLibrary.Models.Pipeline>(pipeline.PipelineJson);
                 var dto = new PipelineDTO()
                 {
                     RepositoryId = pipeline.RepositoryId,
                     Id = pipeline.Id,
                     Name = pipeline.Name,
-                    Pipeline = JsonConvert.DeserializeObject<RabbitMQLibrary.Models.Pipeline>(pipeline.PipelineJson)
+                    Timestamp = pipelineJson.Timestamp,
+                    Pipeline = pipelineJson
                 };
-
                 pipelinesDTOs = pipelinesDTOs.Append(dto);
             }
 
