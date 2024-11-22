@@ -36,6 +36,7 @@ namespace DAPM.RepositoryMS.Api.Consumers
                     Id = pipeline.Id,
                     RepositoryId = pipeline.RepositoryId,
                     Name = pipeline.Name,
+                    Timestamp = message.Pipeline.Timestamp,
                     Pipeline = JsonConvert.DeserializeObject<RabbitMQLibrary.Models.Pipeline>(pipeline.PipelineJson)
                 };
 
