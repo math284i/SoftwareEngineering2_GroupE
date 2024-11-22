@@ -15,13 +15,15 @@ namespace DAPM.ClientApi.Services
         private readonly IQueueProducer<CreatePipelineExecutionRequest> _createInstanceProducer;
         private readonly IQueueProducer<PipelineStartCommandRequest> _pipelineStartCommandProducer;
         private readonly IQueueProducer<GetPipelineExecutionStatusRequest> _getPipelineExecutionStatusProducer;
+        private readonly IQueueProducer<DeletePipelineByIdRequest> _deletePipelineRequestProducer;
         public PipelineService(
             ILogger<PipelineService> logger,
             ITicketService ticketService,
             IQueueProducer<GetPipelinesRequest> getPipelinesRequestProducer,
             IQueueProducer<CreatePipelineExecutionRequest> createInstanceProducer,
             IQueueProducer<PipelineStartCommandRequest> pipelineStartCommandProducer,
-            IQueueProducer<GetPipelineExecutionStatusRequest> getPipelineExecutionStatusProducer)
+            IQueueProducer<GetPipelineExecutionStatusRequest> getPipelineExecutionStatusProducer,
+            IQueueProducer<DeletePipelineByIdRequest> deletePipelineRequestProducer)
         {
             _logger = logger;
             _ticketService = ticketService;
@@ -29,6 +31,7 @@ namespace DAPM.ClientApi.Services
             _createInstanceProducer = createInstanceProducer;
             _pipelineStartCommandProducer = pipelineStartCommandProducer;
             _getPipelineExecutionStatusProducer = getPipelineExecutionStatusProducer;
+            _deletePipelineRequestProducer = deletePipelineRequestProducer;
         }
 
         public Guid CreatePipelineExecution(Guid organizationId, Guid repositoryId, Guid pipelineId)
@@ -106,6 +109,26 @@ namespace DAPM.ClientApi.Services
             _pipelineStartCommandProducer.PublishMessage(message);
 
             _logger.PipelineStartEnqueued();
+
+            return ticketId;
+        }
+        public Guid DeletePipelineById(Guid organizationId, Guid repositoryId, Guid pipelineId)
+        {
+            Guid ticketId = _ticketService.CreateNewTicket(TicketResolutionType.Json);
+
+            var message = new DeletePipelineByIdRequest
+            {
+                MessageId = Guid.NewGuid(),
+                TimeToLive = TimeSpan.FromMinutes(1),
+                TicketId = ticketId,
+                OrganizationId = organizationId,
+                RepositoryId = repositoryId,
+                PipelineId = pipelineId
+            };
+
+            _deletePipelineRequestProducer.PublishMessage(message);
+
+            _logger.LogDebug("DeletePipelineByIdRequest Enqueued");
 
             return ticketId;
         }

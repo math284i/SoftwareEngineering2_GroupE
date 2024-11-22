@@ -5,5 +5,6 @@ namespace DAPM.RepositoryMS.Api.Services.Interfaces
     public interface IPipelineService
     {
         Task<Pipeline> GetPipelineById(Guid repositoryId, Guid pipelineId);
+        Task<bool> DeletePipeline(Guid organizationId, Guid repositoryId, Guid pipelineId);
     }
 }

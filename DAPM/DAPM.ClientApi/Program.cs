@@ -61,7 +61,7 @@ builder.Services.AddQueueMessageConsumer<CollabHandshakeProcessResultConsumer, C
 builder.Services.AddQueueMessageConsumer<PostPipelineCommandProcessResultConsumer, PostPipelineCommandProcessResult>();
 builder.Services.AddQueueMessageConsumer<GetPipelineExecutionStatusProcessResultConsumer, GetPipelineExecutionStatusRequestResult>();
 builder.Services.AddQueueMessageConsumer<DeleteRepositoryProcessResultConsumer, DeleteRepositoryProcessResult>();
-
+builder.Services.AddQueueMessageConsumer<DeletePipelineProcessResultConsumer, DeletePipelineProcessResult>();
 
 
 // Add services to the container.
