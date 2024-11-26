@@ -1,0 +1,10 @@
+For source code from release 2:
+UI: https://github.com/gideon-wade/DAPM-Frontend/releases/tag/release-2
+API: https://github.com/math284i/SoftwareEngineering2_GroupE/releases/tag/release-2
+
+For sprint 3, we roll over the save pipeline task.
+New things:
+- Role based access control
+- Additional frontend features, like disconnect from peer
+- If time, data visulization
+
