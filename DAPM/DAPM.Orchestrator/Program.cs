@@ -70,6 +70,7 @@ builder.Services.AddQueueMessageConsumer<TransferDataActionRequestConsumer, Tran
 builder.Services.AddQueueMessageConsumer<ExecuteOperatorActionRequestConsumer, ExecuteOperatorActionRequest>();
 builder.Services.AddQueueMessageConsumer<PipelineStartCommandRequestConsumer, PipelineStartCommandRequest>();
 builder.Services.AddQueueMessageConsumer<GetPipelineExecutionStatusRequestConsumer, GetPipelineExecutionStatusRequest>();
+builder.Services.AddQueueMessageConsumer<DeletePipelineByIdRequestConsumer, DeletePipelineByIdRequest>();
 
 
 
@@ -94,7 +95,6 @@ builder.Services.AddQueueMessageConsumer<SendResourceToPeerResultConsumer, SendR
 builder.Services.AddQueueMessageConsumer<ExecuteOperatorResultConsumer, ExecuteOperatorResultMessage>();
 builder.Services.AddQueueMessageConsumer<DeleteRepositoryFromOrganizationResultConsumer, DeleteRepositoryFromOrganizationResultMessage>();
 
-
 // Handshake
 builder.Services.AddQueueMessageConsumer<RegistryUpdateAckConsumer, RegistryUpdateAckMessage>();
 builder.Services.AddQueueMessageConsumer<HandshakeRequestResponseConsumer, HandshakeRequestResponseMessage>();
@@ -107,6 +107,7 @@ builder.Services.AddQueueMessageConsumer<ActionResultReceivedConsumer, ActionRes
 builder.Services.AddQueueMessageConsumer<CreatePipelineExecutionResultConsumer, CreatePipelineExecutionResultMessage>();
 builder.Services.AddQueueMessageConsumer<CommandEnqueuedConsumer, CommandEnqueuedMessage>();
 builder.Services.AddQueueMessageConsumer<GetPipelineExecutionStatusResultConsumer, GetPipelineExecutionStatusResultMessage>();
+builder.Services.AddQueueMessageConsumer<DeletePipelineFromRepositoryResultConsumer, DeletePipelineFromRepositoryResultMessage>();
 
 builder.Services.AddSingleton<IOrchestratorEngine, OrchestratorEngine>();
 builder.Services.AddSingleton<IIdentityService, IdentityService>();

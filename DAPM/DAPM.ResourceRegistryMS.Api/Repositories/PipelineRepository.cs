@@ -1,5 +1,6 @@
 ﻿using DAPM.ResourceRegistryMS.Api.Models;
 using DAPM.ResourceRegistryMS.Api.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAPM.ResourceRegistryMS.Api.Repositories
 {
@@ -29,6 +30,22 @@ namespace DAPM.ResourceRegistryMS.Api.Repositories
         public async Task<IEnumerable<Pipeline>> GetPipelinesFromRepository(Guid organizationId, Guid repositoryId)
         {
             return _context.Pipelines.Where(r => r.PeerId == organizationId && r.RepositoryId == repositoryId);
+        }
+
+        public async Task<bool> DeletePipeline(Guid organizationId, Guid repositoryId, Guid pipelineId)
+        {
+        var pipeline = _context.Pipelines.Include(r => r.Repository).Single(r => r.Id == pipelineId && r.RepositoryId == repositoryId);
+
+        if (pipeline == null)
+        {
+            _logger.LogWarning($"Pipeline with ID {pipelineId} not found or does not belong to Repository {repositoryId}.");
+            return false;
+        }
+
+        _context.Pipelines.Remove(pipeline);
+        await _context.SaveChangesAsync();
+        _logger.LogInformation($"Pipeline with ID {repositoryId} deleted.");
+        return true;
         }
     }
 }

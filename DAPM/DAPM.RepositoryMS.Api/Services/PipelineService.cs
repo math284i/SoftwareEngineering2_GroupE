@@ -15,5 +15,9 @@ namespace DAPM.RepositoryMS.Api.Services
         {
             return _pipelineRepository.GetPipelineById(repositoryId, pipelineId);
         }
+        public async Task<bool> DeletePipeline(Guid organizationId, Guid repositoryId, Guid pipelineId)
+        {
+            return await _pipelineRepository.DeletePipeline(organizationId, repositoryId, pipelineId);
+        }
     }
 }

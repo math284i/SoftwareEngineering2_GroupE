@@ -180,5 +180,9 @@ namespace DAPM.Orchestrator
         {
             return;
         }
+        public virtual void OnDeletePipelineFromRepositoryResult(DeletePipelineFromRepositoryResultMessage message)
+                {
+                    return;
+                }
     }
 }

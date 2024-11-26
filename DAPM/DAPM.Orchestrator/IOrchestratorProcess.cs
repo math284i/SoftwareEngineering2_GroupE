@@ -43,6 +43,7 @@ namespace DAPM.Orchestrator
         public void OnCommandEnqueued(CommandEnqueuedMessage message);
         public void OnExecuteOperatorResult(ExecuteOperatorResultMessage message);
         public void OnGetPipelineExecutionStatusResult(GetPipelineExecutionStatusResultMessage message);
+        public void OnDeletePipelineFromRepositoryResult(DeletePipelineFromRepositoryResultMessage message);
 
     }
 }

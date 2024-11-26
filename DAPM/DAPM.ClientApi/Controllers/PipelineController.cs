@@ -56,5 +56,12 @@ namespace DAPM.ClientApi.Controllers
             Guid id = _pipelineService.GetExecutionStatus(organizationId, repositoryId, pipelineId, executionId);
             return Ok(new ApiResponse { RequestName = "GetExecutionStatus", TicketId = id });
         }
+        [HttpDelete("{organizationId}/repositories/{repositoryId}/pipelines/{pipelineId}")]
+        [SwaggerOperation(Description = "Deletes a pipeline by id. You need to have a pipeline with the id in the repository to delete it.")]
+        public async Task<ActionResult<Guid>> DeletePipelineById(Guid organizationId, Guid repositoryId, Guid pipelineId)
+        {
+            Guid id = _pipelineService.DeletePipelineById(organizationId, repositoryId, pipelineId);
+            return Ok(new ApiResponse { RequestName = "DeletePipelineById", TicketId = id});
+        }
     }
 }
