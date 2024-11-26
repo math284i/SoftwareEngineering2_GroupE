@@ -1,10 +1,12 @@
-﻿using DAPM.ClientApi.Models;
+﻿using System.Reflection;
+using DAPM.ClientApi.Models;
 using DAPM.ClientApi.Models.DTOs;
 using DAPM.ClientApi.Services;
 using DAPM.ClientApi.Services.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using VerifierService;
 
 namespace DAPM.ClientApi.Controllers
 {
@@ -24,10 +26,16 @@ namespace DAPM.ClientApi.Controllers
         }
 
         [HttpGet]
+        [Verify("admin")]
         [SwaggerOperation(Description = "Gets all peers (organizations) you are connected to. There has to be a collaboration agreement " +
             "and a handshake before you can see other organizations using this endpoint.")]
         public async Task<ActionResult<Guid>> Get()
         {
+            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), "token"))
+            {
+                return Unauthorized();
+            }
+            
             Guid id = _organizationService.GetOrganizations();
             return Ok(new ApiResponse { RequestName = "GetAllOrganizations", TicketId = id});
         }
