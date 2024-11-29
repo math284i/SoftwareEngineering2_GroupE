@@ -18,6 +18,7 @@ public class VerifierService
     }
     public bool Verify(Roles role, string token)
     {
+        if (HasTokenBeenTamperedWith(token)) return false;
         var result = token switch
         {
             "user" => Roles.NormalUser,
@@ -26,5 +27,10 @@ public class VerifierService
         };
 
         return result >= role;
+    }
+
+    private bool HasTokenBeenTamperedWith(string token)
+    {
+        return false;
     }
 }

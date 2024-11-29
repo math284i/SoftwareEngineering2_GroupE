@@ -26,7 +26,7 @@ namespace DAPM.ClientApi.Controllers
         }
 
         [HttpGet("{token}")]
-        [Verify("admin")]
+        [Verify(Roles.Admin)]
         [SwaggerOperation(Description = "Gets all peers (organizations) you are connected to. There has to be a collaboration agreement " +
             "and a handshake before you can see other organizations using this endpoint.")]
         public async Task<ActionResult<Guid>> Get(string token)
@@ -42,7 +42,7 @@ namespace DAPM.ClientApi.Controllers
 
         
         [HttpGet("{token} {organizationId}")]
-        [Verify("admin")]
+        [Verify(Roles.Admin)]
         [SwaggerOperation(Description = "Gets an organization by id. You need to have a collaboration agreement to retrieve this information.")]
         public async Task<ActionResult<Guid>> GetById(string token, Guid organizationId)
         {
@@ -55,7 +55,7 @@ namespace DAPM.ClientApi.Controllers
         }
 
         [HttpGet("{token} {organizationId}/repositories")]
-        [Verify("admin")]
+        [Verify(Roles.Admin)]
         [SwaggerOperation(Description = "Gets all the repositories of an organization by id. You need to have a collaboration agreement to retrieve this information.")]
         public async Task<ActionResult<Guid>> GetRepositoriesOfOrganization(string token, Guid organizationId)
         {
@@ -68,7 +68,7 @@ namespace DAPM.ClientApi.Controllers
         }
 
         [HttpPost("{token} {organizationId}/repositories")]
-        [Verify("admin")]
+        [Verify(Roles.Admin)]
         [SwaggerOperation(Description = "Creates a new repository for an organization by id. Right now you can create repositories for any organizations, but ideally you would " +
             "only be able to create repositories for your own organization.")]
         public async Task<ActionResult<Guid>> PostRepositoryToOrganization(string token, Guid organizationId, [FromBody] RepositoryApiDto repositoryDto)
