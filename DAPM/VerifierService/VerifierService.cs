@@ -13,10 +13,18 @@ public class VerifierService
         }
         
         var verifyAttribute = method.GetCustomAttribute<VerifyAttribute>();
-        return verifyAttribute == null || verifyAttribute.Validate(token);
+        return verifyAttribute == null || verifyAttribute.Validate(token); // Null here, so if there isn't a verify,
+                                                                           // then everyone have access.
     }
-    public bool Verify(string role, string token)
+    public bool Verify(Roles role, string token)
     {
-        return false;
+        var result = token switch
+        {
+            "user" => Roles.NormalUser,
+            "admin" => Roles.Admin,
+            _ => Roles.Undefined
+        };
+
+        return result >= role;
     }
 }

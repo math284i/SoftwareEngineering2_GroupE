@@ -25,13 +25,13 @@ namespace DAPM.ClientApi.Controllers
             _organizationService = organizationService;
         }
 
-        [HttpGet]
+        [HttpGet("{token}")]
         [Verify("admin")]
         [SwaggerOperation(Description = "Gets all peers (organizations) you are connected to. There has to be a collaboration agreement " +
             "and a handshake before you can see other organizations using this endpoint.")]
-        public async Task<ActionResult<Guid>> Get()
+        public async Task<ActionResult<Guid>> Get(string token)
         {
-            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), "token"))
+            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), token))
             {
                 return Unauthorized();
             }
@@ -41,27 +41,42 @@ namespace DAPM.ClientApi.Controllers
         }
 
         
-        [HttpGet("{organizationId}")]
+        [HttpGet("{token} {organizationId}")]
+        [Verify("admin")]
         [SwaggerOperation(Description = "Gets an organization by id. You need to have a collaboration agreement to retrieve this information.")]
-        public async Task<ActionResult<Guid>> GetById(Guid organizationId)
+        public async Task<ActionResult<Guid>> GetById(string token, Guid organizationId)
         {
+            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), token))
+            {
+                return Unauthorized();
+            }
             Guid id = _organizationService.GetOrganizationById(organizationId);
             return Ok(new ApiResponse { RequestName = "GetOrganizationById", TicketId = id });
         }
 
-        [HttpGet("{organizationId}/repositories")]
+        [HttpGet("{token} {organizationId}/repositories")]
+        [Verify("admin")]
         [SwaggerOperation(Description = "Gets all the repositories of an organization by id. You need to have a collaboration agreement to retrieve this information.")]
-        public async Task<ActionResult<Guid>> GetRepositoriesOfOrganization(Guid organizationId)
+        public async Task<ActionResult<Guid>> GetRepositoriesOfOrganization(string token, Guid organizationId)
         {
+            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), token))
+            {
+                return Unauthorized();
+            }
             Guid id = _organizationService.GetRepositoriesOfOrganization(organizationId);
             return Ok(new ApiResponse {RequestName = "GetRepositoriesOfOrganization", TicketId = id });
         }
 
-        [HttpPost("{organizationId}/repositories")]
+        [HttpPost("{token} {organizationId}/repositories")]
+        [Verify("admin")]
         [SwaggerOperation(Description = "Creates a new repository for an organization by id. Right now you can create repositories for any organizations, but ideally you would " +
             "only be able to create repositories for your own organization.")]
-        public async Task<ActionResult<Guid>> PostRepositoryToOrganization(Guid organizationId, [FromBody] RepositoryApiDto repositoryDto)
+        public async Task<ActionResult<Guid>> PostRepositoryToOrganization(string token, Guid organizationId, [FromBody] RepositoryApiDto repositoryDto)
         {
+            if (!VerifierService.VerifierService.VerifyMethod(this, nameof(Get), token))
+            {
+                return Unauthorized();
+            }
             Guid id = _organizationService.PostRepositoryToOrganization(organizationId, repositoryDto.Name);
             return Ok(new ApiResponse { RequestName = "PostRepositoryToOrganization", TicketId = id });
         }

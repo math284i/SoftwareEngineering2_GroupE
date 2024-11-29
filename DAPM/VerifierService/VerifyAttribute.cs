@@ -3,9 +3,9 @@ namespace VerifierService;
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
 public class VerifyAttribute : Attribute
 {
-    public string Role { get; }
+    public Roles Role { get; }
 
-    public VerifyAttribute(string role)
+    public VerifyAttribute(Roles role)
     {
         Role = role;
     }
