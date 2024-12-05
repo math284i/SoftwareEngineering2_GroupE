@@ -45,12 +45,27 @@ namespace DAPM.ResourceRegistryMS.Api.Consumers
 
             foreach (var pipeline in pipelines)
             {
+                string info = pipeline.Name;
+                string name = "";
+                string timestampStr = "";
+                int timestamp = 0;
+                _logger.Log(LogLevel.Information, "Converting pipeline: " + pipeline.Name);
+                if (info.Contains('/')) {
+                    name = info.Split("/")[0];
+                    timestampStr = info.Split("/")[1];
+                    if (int.TryParse(timestampStr, out timestamp)) {
+                        _logger.Log(LogLevel.Information, "Parsed name and timestamp");
+                    }
+                } else {
+                    name = info;
+                }
                 var r = new PipelineDTO
                 {
                     Id = pipeline.Id,
-                    Name = pipeline.Name,
+                    Name = name,
                     OrganizationId = pipeline.PeerId,
                     RepositoryId = pipeline.RepositoryId,
+                    Timestamp = timestamp,
                 };
 
                 pipelinesDTOs = pipelinesDTOs.Append(r);
