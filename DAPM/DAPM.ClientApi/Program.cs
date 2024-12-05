@@ -14,7 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.WebHost.UseKestrel(o => o.Limits.MaxRequestBodySize = null);
+builder.WebHost.UseKestrel(o => {
+    o.Limits.MaxRequestBodySize = null;
+    o.ConfigureHttpsDefaults(httpsOptions =>
+    {
+        httpsOptions.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+    });
+});
 
 builder.Services.Configure<FormOptions>(x =>
 {

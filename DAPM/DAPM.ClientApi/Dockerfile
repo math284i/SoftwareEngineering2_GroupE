@@ -21,4 +21,6 @@ RUN dotnet publish "./DAPM.ClientApi.csproj" -c $BUILD_CONFIGURATION -o /app/pub
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY "DAPM.ClientApi/localhost.pem" .
+COPY "DAPM.ClientApi/localhost-key.pem" .
 ENTRYPOINT ["dotnet", "DAPM.ClientApi.dll"]
