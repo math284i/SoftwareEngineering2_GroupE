@@ -13,5 +13,6 @@
         public static string TransferDataActionEndpoint = PeerApiPort + "/actions/transfer-data";
         public static string ExecuteOperatorActionEndpoint = PeerApiPort + "/actions/execute-operator";
         public static string ActionResultEndpoint = PeerApiPort + "/actions/action-result";
+        public static string AuthorizationEndpoint = PeerApiPort + "/actions/authorized"; //Mathias A
     }
 }

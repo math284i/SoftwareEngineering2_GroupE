@@ -48,5 +48,18 @@ namespace DAPM.PeerApi.Controllers
             return Ok();
         }
 
+        //Mathias A
+        [HttpPost("authorized")]
+        public ActionResult CheckAuthorization([FromBody] AuthorizationRequest request)
+        {
+            var isAuthorized = _actionService.IsAuthorized(request.UserId);
+            return Ok(new { authorized = isAuthorized });
+        }
+
+        public class AuthorizationRequest
+        {
+            public string UserId { get; set; }
+        }
+
     }
 }
