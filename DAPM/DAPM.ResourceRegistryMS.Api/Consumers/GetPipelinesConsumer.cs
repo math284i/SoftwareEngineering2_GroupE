@@ -8,7 +8,7 @@ using RabbitMQLibrary.Models;
 
 /**
  * All new changes are made by:
- * @Author: s20416 and s204178
+ * @Author: s20416, s204178, s204423, s205339 s204452
  */
 
 namespace DAPM.ResourceRegistryMS.Api.Consumers

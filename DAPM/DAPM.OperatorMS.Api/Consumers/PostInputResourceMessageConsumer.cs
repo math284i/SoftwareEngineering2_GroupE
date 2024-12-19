@@ -5,6 +5,11 @@ using RabbitMQLibrary.Messages.Operator;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromOperator;
 using RabbitMQLibrary.Models;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.OperatorMS.Api.Consumers
 {
     public class PostInputResourceMessageConsumer : IQueueConsumer<PostInputResourceMessage>

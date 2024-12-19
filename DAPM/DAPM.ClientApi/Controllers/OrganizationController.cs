@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using VerifierService;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.ClientApi.Controllers
 {
     [ApiController]

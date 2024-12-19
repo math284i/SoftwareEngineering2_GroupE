@@ -8,6 +8,11 @@ using RabbitMQLibrary.Models;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults;
 using RabbitMQLibrary.Messages.ClientApi;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.ClientApi.Consumers
 {
     public class GetResourcesProcessResultConsumer : IQueueConsumer<GetResourcesProcessResult>

@@ -6,7 +6,10 @@ using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 using System.Linq;
 using DAPM.ResourceRegistryMS.Api.LoggingExtensions;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
     public class GetOrganizationsConsumer : IQueueConsumer<GetOrganizationsMessage>

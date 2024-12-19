@@ -7,6 +7,11 @@ using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.ClientApi;
 using RabbitMQLibrary.Models;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.ClientApi.Consumers
 {
     public class GetPipelineExecutionStatusProcessResultConsumer : IQueueConsumer<GetPipelineExecutionStatusRequestResult>

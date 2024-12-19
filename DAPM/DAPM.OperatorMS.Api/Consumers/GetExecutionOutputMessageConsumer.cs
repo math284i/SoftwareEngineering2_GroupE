@@ -5,6 +5,11 @@ using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Models;
 using DAPM.OperatorMS.Api.Services.Interfaces;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.OperatorMS.Api.Consumers
 {
     public class GetExecutionOutputMessageConsumer : IQueueConsumer<GetExecutionOutputMessage>

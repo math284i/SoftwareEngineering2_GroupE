@@ -4,7 +4,10 @@ using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.ClientApi;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.ResourceRegistry;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
     public class PostResourceToRegistryConsumer : IQueueConsumer<PostResourceToRegistryMessage>

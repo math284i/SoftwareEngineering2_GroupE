@@ -3,7 +3,10 @@ using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.ResourceRegistry;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
     public class PostPipelineToRegistryConsumer : IQueueConsumer<PostPipelineToRegistryMessage>

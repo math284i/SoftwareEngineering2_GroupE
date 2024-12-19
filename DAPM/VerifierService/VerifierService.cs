@@ -1,5 +1,8 @@
 using System.Reflection;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace VerifierService;
 
 public class VerifierService
@@ -13,7 +16,6 @@ public class VerifierService
         }
         
         var verifyAttribute = method.GetCustomAttribute<VerifyAttribute>();
-        return true;
         return verifyAttribute == null || verifyAttribute.Validate(token); // Null here, so if there isn't a verify,
                                                                            // then everyone have access.
     }

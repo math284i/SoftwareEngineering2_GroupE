@@ -12,7 +12,10 @@ using RabbitMQLibrary.Models;
 using System.Diagnostics;
 using System.Xml.Linq;
 using DAPM.Orchestrator.LoggerExtensions;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.Orchestrator.Processes
 {
     public class CollabHandshakeProcess : OrchestratorProcess

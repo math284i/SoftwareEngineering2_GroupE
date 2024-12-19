@@ -9,7 +9,10 @@ using RabbitMQLibrary.Messages.PeerApi;
 using RabbitMQLibrary.Models;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Messages.PeerApi.Handshake;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.Orchestrator.Processes
 {
     public class CollabHandshakeResponseProcess : OrchestratorProcess

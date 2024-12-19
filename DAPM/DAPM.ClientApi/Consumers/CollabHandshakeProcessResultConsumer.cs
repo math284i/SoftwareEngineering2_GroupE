@@ -7,6 +7,11 @@ using RabbitMQLibrary.Messages.ClientApi;
 using RabbitMQLibrary.Models;
 using DAPM.ClientApi.Services.Interfaces;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.ClientApi.Consumers
 {
     public class CollabHandshakeProcessResultConsumer : IQueueConsumer<CollabHandshakeProcessResult>

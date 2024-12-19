@@ -3,6 +3,11 @@ using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Operator;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromOperator;
 
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
+
 namespace DAPM.OperatorMS.Api.Consumers
 {
     public class ExecuteOperatorMessageConsumer : IQueueConsumer<ExecuteOperatorMessage>

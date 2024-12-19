@@ -5,7 +5,10 @@ using RabbitMQLibrary.Messages.Repository;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 using System.Text.Json;
-
+/**
+ * All new changes are made by:
+ * @Author: s204423, s205339 s204452
+ */
 namespace DAPM.Orchestrator.Services
 {
     public class IdentityService : IIdentityService
