@@ -4,7 +4,7 @@ using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 
 /**
  * All new changes are made by:
- * @Author: s204197
+ * @Author: s204197, s204166, s204178
  */
  
 namespace DAPM.ResourceRegistryMS.Api.Services

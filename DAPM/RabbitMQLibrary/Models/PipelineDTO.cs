@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * All new changes are made by:
+ * @Author: s20416 and s204178
+ */
+
 namespace RabbitMQLibrary.Models
 {
     public class Resource
