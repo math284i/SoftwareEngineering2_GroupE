@@ -1,5 +1,10 @@
 ﻿using DAPM.RepositoryMS.Api.Models.PostgreSQL;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.RepositoryMS.Api.Repositories.Interfaces
 {
     public interface IRepositoryRepository

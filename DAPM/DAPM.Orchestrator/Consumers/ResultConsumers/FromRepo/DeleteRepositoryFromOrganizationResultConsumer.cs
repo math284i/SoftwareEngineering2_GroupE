@@ -1,6 +1,11 @@
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.Orchestrator.Consumers.ResultConsumers.FromRepo
 {
     public class DeleteRepositoryFromOrganizationResultConsumer : IQueueConsumer<DeleteRepositoryFromOrganizationResultMessage>

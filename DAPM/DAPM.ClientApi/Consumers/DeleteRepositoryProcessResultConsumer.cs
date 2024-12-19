@@ -7,6 +7,11 @@ using RabbitMQLibrary.Models;
 using DAPM.ClientApi.Services.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.ClientApi.Consumers
 {
     public class DeleteRepositoryProcessResultConsumer : IQueueConsumer<DeleteRepositoryProcessResult>

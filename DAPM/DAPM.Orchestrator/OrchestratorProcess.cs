@@ -8,11 +8,12 @@ using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromPipelineOrchestra
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRegistry;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 
+
 /**
  * All new changes are made by:
- * @Author: s216160
+ * @Author: s204197 and s216160
  */
-
+ 
 namespace DAPM.Orchestrator
 {
     public abstract class OrchestratorProcess : IOrchestratorProcess

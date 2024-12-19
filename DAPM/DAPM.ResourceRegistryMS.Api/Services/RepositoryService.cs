@@ -2,6 +2,11 @@
 using DAPM.ResourceRegistryMS.Api.Repositories.Interfaces;
 using DAPM.ResourceRegistryMS.Api.Services.Interfaces;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.ResourceRegistryMS.Api.Services
 {
     public class RepositoryService : IRepositoryService

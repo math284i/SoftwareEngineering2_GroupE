@@ -5,6 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace RabbitMQLibrary.Messages.Orchestrator.ProcessRequests
 {
     public class GetResourcesRequest : IQueueMessage

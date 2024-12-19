@@ -2,6 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.ResourceRegistryMS.Api.Models
 {
     public class Repository

@@ -6,6 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo
 {
     public class DeleteRepositoryFromOrganizationResultMessage : IQueueMessage

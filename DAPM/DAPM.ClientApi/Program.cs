@@ -10,11 +10,12 @@ using RabbitMQLibrary.Messages.Orchestrator.ServiceResults;
 using Microsoft.OpenApi.Models;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromPipelineOrchestrator;
 
+
 /**
  * All new changes are made by:
- * @Author: s216160
+ * @Author: s204197 and s216160
  */
-
+ 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

@@ -1,6 +1,11 @@
 ﻿using DAPM.ClientApi.Models.DTOs;
 using RabbitMQLibrary.Models;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.ClientApi.Services.Interfaces
 {
     public interface IRepositoryService

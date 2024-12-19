@@ -4,6 +4,11 @@ using RabbitMQLibrary.Messages.Repository;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 using Microsoft.Extensions.Logging;
 
+/**
+ * All new changes are made by:
+ * @Author: s204197
+ */
+ 
 namespace DAPM.ResourceRegistryMS.Api.Consumers
 {
     public class DeleteRepositoryFromOrganizationMessageConsumer : IQueueConsumer<DeleteRepositoryFromOrganizationMessage>
