@@ -9,6 +9,11 @@ using RabbitMQLibrary.Messages.Repository;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Models;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.Orchestrator.Processes
 {
     public class DeletePipelineProcess : OrchestratorProcess

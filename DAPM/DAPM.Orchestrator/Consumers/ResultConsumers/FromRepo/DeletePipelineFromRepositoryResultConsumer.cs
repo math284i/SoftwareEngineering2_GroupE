@@ -1,6 +1,11 @@
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.Orchestrator.Consumers.ResultConsumers.FromRepo
 {
     public class DeletePipelineFromRepositoryResultConsumer : IQueueConsumer<DeletePipelineFromRepositoryResultMessage>

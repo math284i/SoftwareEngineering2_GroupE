@@ -2,6 +2,11 @@
 using RabbitMQLibrary.Interfaces;
 using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.Orchestrator.Consumers.StartProcessConsumers
 {
     public class DeletePipelineByIdRequestConsumer : IQueueConsumer<DeletePipelineByIdRequest>

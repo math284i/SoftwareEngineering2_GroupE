@@ -1,5 +1,10 @@
 ﻿using DAPM.ResourceRegistryMS.Api.Models;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.ResourceRegistryMS.Api.Repositories.Interfaces
 {
     public interface IPipelineRepository

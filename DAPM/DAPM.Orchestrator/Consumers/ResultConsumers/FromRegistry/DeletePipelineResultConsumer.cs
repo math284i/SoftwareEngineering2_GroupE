@@ -3,6 +3,11 @@ using RabbitMQLibrary.Messages.Repository;
 using DAPM.Orchestrator.Processes;
 using RabbitMQLibrary.Messages.Orchestrator.ServiceResults.FromRepo;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.Orchestrator.Consumers.ResultConsumers.FromRegistry
 {
     public class DeletePipelineResultConsumer : IQueueConsumer<DeletePipelineFromRepositoryResultMessage>

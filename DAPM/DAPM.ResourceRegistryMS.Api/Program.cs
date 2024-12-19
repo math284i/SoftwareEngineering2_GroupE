@@ -13,6 +13,11 @@ using DAPM.ResourceRegistryMS.Api.Consumers;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 using RabbitMQLibrary.Messages.Repository;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();

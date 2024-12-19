@@ -1,5 +1,9 @@
 ﻿namespace DAPM.ClientApi.Services.Interfaces
 {
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
     public interface IPipelineService
     {
         public Guid GetPipelineById(Guid organizationId, Guid repositoryId, Guid pipelineId);

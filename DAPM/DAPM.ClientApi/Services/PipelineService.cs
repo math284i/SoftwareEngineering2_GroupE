@@ -5,6 +5,11 @@ using RabbitMQLibrary.Messages.Orchestrator.ProcessRequests;
 using RabbitMQLibrary.Messages.PipelineOrchestrator;
 using RabbitMQLibrary.Messages.ResourceRegistry;
 
+/**
+ * All new changes are made by:
+ * @Author: s216160
+ */
+
 namespace DAPM.ClientApi.Services
 {
     public class PipelineService : IPipelineService
